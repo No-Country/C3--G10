@@ -10,15 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cards")
+@Table(name = "card")
 public class Card implements Serializable {
 	
 	private static final long serialVersionUID = 1L; 
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, name = "id_card")
-    private Long idCard;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(unique = true, name = "id_card")
+        private Long idCard;
 	
 	@Column(nullable = false, name = "card_number")
 	private long cardNumber;
