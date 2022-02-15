@@ -1,16 +1,16 @@
 package com.nocountry.grupo10.model.entity;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Loands")
+@Table (name = "Transaction")
 @Data
-public class LoandEntity {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 }
