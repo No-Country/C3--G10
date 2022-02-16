@@ -4,7 +4,17 @@ package com.nocountry.grupo10.model.entity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -22,7 +32,7 @@ public class AppUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_user")
     private Long idUser;
 
     @Column(name = "name")
@@ -51,11 +61,11 @@ public class AppUser implements Serializable {
     @Size(min = 7, max = 8)
     private Long document;
 
-    @Column(name = "adress", nullable = false)
-    private String adress;
+    @Column(name = "address", nullable = false)
+    private String address;
 
-    @Column(name = "adress_number", nullable = false)
-    private Long adressNumber;
+    @Column(name = "address_number", nullable = false)
+    private Long addressNumber;
 
     @Column(name = "birthdate")
     @NotBlank
@@ -71,7 +81,7 @@ public class AppUser implements Serializable {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_usuario"),
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private List<Role> roles = new ArrayList<>();
 
