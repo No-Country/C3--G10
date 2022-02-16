@@ -2,11 +2,9 @@ package com.nocountry.grupo10.model.entity;
 
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.time.LocalDate;
 
 
@@ -14,7 +12,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "User")
 @Data
-public class UserEntity implements Serializable {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
