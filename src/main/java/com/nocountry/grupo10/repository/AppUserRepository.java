@@ -12,4 +12,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Boolean existsByEmail(String email);
     Boolean existsByNameAndLastName(String name, String lastName);
     //TODO: En caso de que concatenar nombres no funcione, implementar manualmente los metodos.!!
+
+    public void save(AppUser appUser);
 }
