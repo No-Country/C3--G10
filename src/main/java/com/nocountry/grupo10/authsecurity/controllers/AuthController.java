@@ -1,13 +1,22 @@
 package com.nocountry.grupo10.authsecurity.controllers;
 
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+
+import com.nocountry.grupo10.authsecurity.payload.request.LoginRequest;
+import com.nocountry.grupo10.authsecurity.payload.request.SignupRequest;
+import com.nocountry.grupo10.authsecurity.payload.response.JwtResponse;
+import com.nocountry.grupo10.authsecurity.payload.response.MessageResponse;
+import com.nocountry.grupo10.authsecurity.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +27,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bezkoder.springjwt.security.services.UserDetailsImpl;
 import com.nocountry.grupo10.authsecurity.security.jwt.JwtUtils;
 import com.nocountry.grupo10.model.entity.AppUser;
 import com.nocountry.grupo10.model.entity.Role;
@@ -55,11 +63,11 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		List<String> roles = userDetails.getAuthorities().stream()
 				.map(item -> item.getAuthority())
 				.collect(Collectors.toList());
-		return ResponseEntity.ok(new JwtResponse(jwt, 
+		return ResponseEntity.ok(new JwtResponse(jwt,
 												 userDetails.getId(), 
 												 userDetails.getUsername(), 
 												 userDetails.getEmail(), 
@@ -78,12 +86,23 @@ public class AuthController {
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 		// Create new user's account
-		AppUser appUser = new AppUser(signUpRequest.getUsername(), 
-							 signUpRequest.getEmail(),
-							 encoder.encode(signUpRequest.getPassword()));
+		AppUser appUser = new AppUser();
+
+		appUser.setUsername(signUpRequest.getUsername());
+		appUser.setEmail(signUpRequest.getEmail());
+		appUser.setPassword(encoder.encode(signUpRequest.getPassword()));
+		appUser.setName(signUpRequest.getName());
+		appUser.setLastName(signUpRequest.getLastName());
+		appUser.setPhoneNumber(signUpRequest.getPhoneNumber());
+		appUser.setDocument(signUpRequest.getDocument());
+		appUser.setAddress(signUpRequest.getAddress());
+		appUser.setAddressNumber(signUpRequest.getAddressNumber());
+		appUser.setBirthdate(string2LocalDate(signUpRequest.getBirthdate()));
+
+
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
-		if (strRoles == null) {
+		if (strRoles == null || strRoles.isEmpty()) {
 			Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
 					.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 			roles.add(userRole);
@@ -102,7 +121,7 @@ public class AuthController {
 				}
 			});
 		}
-		appUser.setRoles((List<Role>) roles);
+		appUser.setRoles((Set<Role>) roles);
 		appUserRepository.save(appUser);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
@@ -121,5 +140,10 @@ public class AuthController {
         session.removeAttribute("idUser");
         return "redict:/";
     }
-        
+
+	private LocalDate string2LocalDate (String stringDate){
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		LocalDate date = LocalDate.parse(stringDate, formatter);
+		return date;
+	}
 }
