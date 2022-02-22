@@ -2,6 +2,11 @@ package com.nocountry.grupo10.authsecurity.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Request utilizado para logear una vez creado el AppUser
+ * @author NoCountry-G10
+ * @version 1.0
+ */
 public class LoginRequest {
     @NotBlank
     private String username;

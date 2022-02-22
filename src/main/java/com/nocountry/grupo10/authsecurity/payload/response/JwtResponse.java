@@ -2,6 +2,12 @@ package com.nocountry.grupo10.authsecurity.payload.response;
 
 import java.util.List;
 
+/**
+ * Respuesta que se da al Front una vez que el logeo fue exitoso.
+ * Se devuelven todos los parametros de la clase
+ * @author NoCountry-G10
+ * @version 1.0
+ */
 public class JwtResponse {
     private String token;
     private String type = "Bearer";

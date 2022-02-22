@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Entidad encargada de generar la tabla "user"
  * Usa nombre AppUser para diferenciarse de la clase "User" del package de security
- * Sus valores iniciales se crean con un CommandLineRunner
+ * Sus valores iniciales en DB se crean con un CommandLineRunner
  * El request de datos se hace via {@link com.nocountry.grupo10.authsecurity.payload.request.SignupRequest}
  * @author NoCountry-Grupo10
  * @version 1.0

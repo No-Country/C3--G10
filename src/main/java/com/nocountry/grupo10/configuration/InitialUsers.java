@@ -8,6 +8,7 @@ import com.nocountry.grupo10.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.time.LocalDate;
@@ -33,6 +34,9 @@ public class InitialUsers implements CommandLineRunner {
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -78,7 +82,7 @@ public class InitialUsers implements CommandLineRunner {
             String initialDate = "1999/03/15";
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             admin.setBirthdate(LocalDate.parse(initialDate, df));
-            admin.setPassword("q1w2e3r4");
+            admin.setPassword(encoder.encode("q1w2e3r4"));
             admin.setRoles(roles);
             userRepository.save(admin);
             createUserIfNotexist();
@@ -103,7 +107,7 @@ public class InitialUsers implements CommandLineRunner {
             String initialDate = "1999/03/15";
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             user.setBirthdate(LocalDate.parse(initialDate,df));
-            user.setPassword("q1w2e3r4");
+            user.setPassword(encoder.encode("q1w2e3r4"));
             user.setRoles(roles);
             userRepository.save(user);
 

@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Interface repositorio de la Clase AppUser.
+ * @author NoCountry-G10
+ * @version 1.0
+ */
 @Repository
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Optional<AppUser> findByNameAndLastName(String name, String lastName);

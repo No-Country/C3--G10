@@ -5,6 +5,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
+
+/**
+ * Request enviado desde el front al back para crear usuario
+ * @author NoCountry-G10
+ * @version 1.0
+ */
 public class SignupRequest {
 
     @NotBlank
