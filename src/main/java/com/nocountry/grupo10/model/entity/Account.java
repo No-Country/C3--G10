@@ -34,7 +34,7 @@ public class Account implements Serializable {
     private AccountType type;
 
     @Column(nullable = false, name = "user")
-    private User user;
+    private AppUser user;
     
     @OneToMany( mappedBy = "account", cascade = CascadeType.ALL)
     private List<Card> cards;

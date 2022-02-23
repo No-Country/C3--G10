@@ -1,7 +1,9 @@
 package com.nocountry.grupo10.model.entity;
 
+
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,9 +20,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+
+/**
+ * Entidad encargada de generar la tabla "user"
+ * Usa nombre AppUser para diferenciarse de la clase "User" del package de security
+ * Sus valores iniciales en DB se crean con un CommandLineRunner
+ * El request de datos se hace via {@link com.nocountry.grupo10.authsecurity.payload.request.SignupRequest}
+ * @author NoCountry-Grupo10
+ * @version 1.0
+ */
 @Entity
 @Table(name = "user")
 @Data
@@ -35,53 +46,55 @@ public class AppUser implements Serializable {
 
     @Column(name = "name")
     @NotBlank
-    @Size(min = 6, max = 50)
+    @Size(min = 3, max = 25)
     private String name;
 
     @Column(name = "last_name")
     @NotBlank
-    @Size(min = 6, max = 50)
+    @Size(min = 3, max = 25)
     private String lastName;
 
-    @Column(name = "email", unique = true)
+
+    @Column(name = "username")
     @NotBlank
+    @Size(min = 3, max = 40)
+    private String username;
+
+    @Column(name = "email", unique = true)
     @Email
-    @Size(min = 12, max = 50)
+    @NotBlank
+    @Size(max = 50)
     private String email;
 
     @Column(name = "phone_number")
-    @NotBlank
-    @Size(min = 8, max = 12)
     private Long phoneNumber;
 
     @Column(name = "dni")
-    @NotBlank
-    @Size(min = 7, max = 8)
     private Long document;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
+    @NotBlank
+    @Size(min = 3, max = 40)
     private String address;
 
-    @Column(name = "address_number", nullable = false)
+    @Column(name = "address_number")
     private Long addressNumber;
 
     @Column(name = "birthdate")
-    @NotBlank
     @DateTimeFormat(
             pattern = "yyyy/MM/dd"
     )
-    @NotBlank
+
     private LocalDate birthdate;
 
     @Column(name = "password")
     @NotBlank
-    @Size(min = 8)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet();
 
     //TODO: Email como username para logear?? o aplicar username
 }
