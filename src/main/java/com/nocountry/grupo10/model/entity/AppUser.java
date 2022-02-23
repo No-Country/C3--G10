@@ -1,9 +1,7 @@
 package com.nocountry.grupo10.model.entity;
 
-
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -85,7 +83,5 @@ public class AppUser implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private List<Role> roles = new ArrayList<>();
 
-
     //TODO: Email como username para logear?? o aplicar username
-
 }
