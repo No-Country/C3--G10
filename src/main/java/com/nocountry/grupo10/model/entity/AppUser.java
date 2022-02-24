@@ -94,11 +94,7 @@ public class AppUser implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles = new HashSet<>();
-
+    private Set<Role> roles = new HashSet();
 
     //TODO: Email como username para logear?? o aplicar username
-
-
-
 }
