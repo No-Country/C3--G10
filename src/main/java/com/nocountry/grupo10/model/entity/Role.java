@@ -1,5 +1,6 @@
 package com.nocountry.grupo10.model.entity;
 
+import java.io.Serializable;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -13,9 +14,12 @@ import javax.persistence.GenerationType;
 
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 @Data
-public class Role {
+public class Role implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_role")
@@ -25,5 +29,6 @@ public class Role {
     @Column(name = "name")
     private RoleType name;
 
+    @Column(name = "description")
     private String description;
 }
