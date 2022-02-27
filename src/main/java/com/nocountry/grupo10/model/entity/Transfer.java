@@ -1,6 +1,8 @@
 package com.nocountry.grupo10.model.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,8 +29,14 @@ public class Transfer implements Serializable {
     @Column(name = "cvuReceiver")
     private long cvuReceiver;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Account account;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Account accountBelong;
+    
+    @Column(name = "timestamp")
+    private Timestamp timestamp;
+    
+    @Column(name = "soft_delete")
+    private boolean softDelete;
 
     public Long getIdTransfer() {
         return idTransfer;
@@ -55,10 +63,34 @@ public class Transfer implements Serializable {
     }
 
     public Account getAccount() {
-        return account;
+        return accountBelong;
     }
 
     public void setAccount(Account account) {
-        this.account = account;
+        this.accountBelong = account;
     }    
+    
+    public Account getAccountBelong() {
+        return accountBelong;
+    }
+
+    public void setAccountBelong(Account accountBelong) {
+        this.accountBelong = accountBelong;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public boolean isSoftDelete() {
+        return softDelete;
+    }
+
+    public void setSoftDelete(boolean softDelete) {
+        this.softDelete = softDelete;
+    }
 }

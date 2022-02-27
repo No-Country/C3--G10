@@ -1,8 +1,12 @@
 package com.nocountry.grupo10.util;
 
+import com.nocountry.grupo10.DTO.Request.AccountRequest;
 import com.nocountry.grupo10.DTO.Request.CardRequest;
+import com.nocountry.grupo10.DTO.Request.TransferRequest;
 import com.nocountry.grupo10.DTO.Response.CardResponse;
 import com.nocountry.grupo10.model.entity.Card;
+import com.nocountry.grupo10.model.entity.Transfer;
+import com.nocountry.grupo10.model.entity.Account;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,14 @@ public class ConvertUtil {
     
     public static CardResponse convertToDto(Card card) {
         return map(card, CardResponse.class);
+    }
+    
+    public static Transfer convertToEntity(TransferRequest request) {
+        return map(request, Transfer.class);
+    }
+    
+    public static Account convertToEntity(AccountRequest request) {
+        return map(request, Account.class);
     }
 
     private static <D> D map(Object source, Class<D> destinationType) {

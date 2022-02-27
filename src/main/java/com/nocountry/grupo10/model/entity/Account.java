@@ -30,12 +30,17 @@ public class Account implements Serializable {
     @Column(name = "balance")
     private Double balance;
 
-    @Column(nullable = false, name = "account_type")	//CAJA DE AHORRO, CUENTA CORRIENTE, CAJA DE AHORRO EN DOLARES
+    //@Column(nullable = false, name = "account_type")	//CAJA DE AHORRO, CUENTA CORRIENTE, CAJA DE AHORRO EN DOLARES
+    @Column(name = "account_type")
     private AccountType type;
 
-    @Column(nullable = false, name = "user")
+    @Column(name = "user")
+    //@Column(nullable = false, name = "user")
     private AppUser user;
     
     @OneToMany( mappedBy = "account", cascade = CascadeType.ALL)
     private List<Card> cards;
+    
+    @OneToMany(mappedBy = "accountBelong", cascade = CascadeType.ALL)
+    private List<Transfer> transfers;
 }
