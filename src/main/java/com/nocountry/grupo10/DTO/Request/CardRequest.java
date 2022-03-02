@@ -1,8 +1,6 @@
 package com.nocountry.grupo10.DTO.Request;
 
-import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.model.entity.CardType;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class CardRequest {
@@ -27,7 +25,6 @@ public class CardRequest {
     private String institution;
     /*
     @NotEmpty(message = "Account cannot be empty")
-    @NotNull(message = "Account cannot be null.")
     private Account account;
     */
 

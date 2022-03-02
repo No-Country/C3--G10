@@ -27,7 +27,8 @@ public class Account implements Serializable {
     @Column(name = "balance")
     private Double balance;
 
-    @Column(nullable = false, name = "account_type")	//CAJA DE AHORRO, CUENTA CORRIENTE, CAJA DE AHORRO EN DOLARES
+    //@Column(nullable = false, name = "account_type")	//CAJA DE AHORRO, CUENTA CORRIENTE, CAJA DE AHORRO EN DOLARES
+    @Column(name = "account_type")
     private AccountType type;
 
     @Column(nullable = false, name = "user")
@@ -39,4 +40,7 @@ public class Account implements Serializable {
 
     @Column(name = "soft_delete")
     private boolean softDelete;
+    
+    @OneToMany(mappedBy = "accountBelong", cascade = CascadeType.ALL)
+    private List<Transfer> transfers;
 }
