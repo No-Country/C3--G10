@@ -1,6 +1,6 @@
 package com.nocountry.grupo10.util;
 
-import com.nocountry.grupo10.DTO.Request.CardRequest;
+import com.nocountry.grupo10.DTO.Request.AccountRequest;
 import com.nocountry.grupo10.DTO.Response.CardResponse;
 import com.nocountry.grupo10.model.entity.Card;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class ConvertUtil {
         ConvertUtil.modelMapper = modelMapper;
     }
     
-    public static Card convertToEntity(CardRequest request) {
+    public static Card convertToEntity(AccountRequest request) {
         return map(request, Card.class);
     }
     

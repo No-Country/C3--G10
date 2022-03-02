@@ -1,15 +1,9 @@
 package com.nocountry.grupo10.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
+
 import lombok.Data;
 
 @Entity
@@ -24,6 +18,9 @@ public class Account implements Serializable {
     @Column(unique = true, name = "id_account")
     private Long idAccount;
 
+    @Column(nullable = false, name = "account_number")
+    private long AccountNumber;
+
     @Column(name = "account_maintenance")
     private Double account_Maintenance;
 
@@ -34,8 +31,12 @@ public class Account implements Serializable {
     private AccountType type;
 
     @Column(nullable = false, name = "user")
+    @ManyToOne(fetch = FetchType.LAZY)
     private AppUser user;
     
     @OneToMany( mappedBy = "account", cascade = CascadeType.ALL)
     private List<Card> cards;
+
+    @Column(name = "soft_delete")
+    private boolean softDelete;
 }
