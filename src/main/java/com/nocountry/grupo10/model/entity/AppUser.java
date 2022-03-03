@@ -1,9 +1,7 @@
 package com.nocountry.grupo10.model.entity;
 
-
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +20,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
 
 /**
  * Entidad encargada de generar la tabla "user"
@@ -77,14 +74,10 @@ public class AppUser implements Serializable {
     @Size(min = 3, max = 40)
     private String address;
 
-    @Column(name = "address_number")
-    private Long addressNumber;
-
     @Column(name = "birthdate")
     @DateTimeFormat(
             pattern = "yyyy/MM/dd"
     )
-
     private LocalDate birthdate;
 
     @Column(name = "password")

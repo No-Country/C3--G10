@@ -7,22 +7,14 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AccountRequest {
 
-    @NotNull(message = "Account number cannot be null.")
-    private long AccountNumber;
-
     @NotNull(message = "Type cannot be null.")
     private AccountType type;
 
-    @NotNull(message = "Balance can not be null.")
+    @NotNull(message = "Balance cannot be null.")
     private Double balance;
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
+    
+    @NotNull(message = "AppUser cannot be null.")
+    private AppUserRequest user;
     
     //To Do: agregar todos los atributos necesarios
 }

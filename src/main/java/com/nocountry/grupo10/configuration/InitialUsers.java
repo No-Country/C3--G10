@@ -13,10 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 import static com.nocountry.grupo10.model.entity.RoleType.ROLE_ADMIN;
 import static com.nocountry.grupo10.model.entity.RoleType.ROLE_USER;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -78,7 +80,6 @@ public class InitialUsers implements CommandLineRunner {
             admin.setPhoneNumber(2616112237l);
             admin.setDocument(43553949l);
             admin.setAddress("Calle falsa");
-            admin.setAddressNumber(123l);
             String initialDate = "1999/03/15";
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             admin.setBirthdate(LocalDate.parse(initialDate, df));
@@ -103,7 +104,6 @@ public class InitialUsers implements CommandLineRunner {
             user.setPhoneNumber(2616123456l);
             user.setDocument(10213688l);
             user.setAddress("San Martin");
-            user.setAddressNumber(7253l);
             String initialDate = "1999/03/15";
             DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy/MM/dd");
             user.setBirthdate(LocalDate.parse(initialDate,df));
@@ -112,8 +112,4 @@ public class InitialUsers implements CommandLineRunner {
             userRepository.save(user);
 
     }
-
-
-
-
 }

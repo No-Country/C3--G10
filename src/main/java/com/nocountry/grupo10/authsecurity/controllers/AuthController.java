@@ -100,7 +100,6 @@ public class AuthController {
 		appUser.setPhoneNumber(signUpRequest.getPhoneNumber());
 		appUser.setDocument(signUpRequest.getDocument());
 		appUser.setAddress(signUpRequest.getAddress());
-		appUser.setAddressNumber(signUpRequest.getAddressNumber());
 		appUser.setBirthdate(string2LocalDate(signUpRequest.getBirthdate()));
 
 
