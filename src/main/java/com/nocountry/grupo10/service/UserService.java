@@ -1,8 +1,10 @@
 package com.nocountry.grupo10.service;
 
-
-import org.springframework.context.annotation.ComponentScan;
+import com.nocountry.grupo10.model.entity.AppUser;
 
 
 public interface UserService {
+
+    public AppUser getUser(Long idUser);
+    
 }

@@ -5,10 +5,12 @@ import com.nocountry.grupo10.DTO.Response.AccountResponse;
 import com.nocountry.grupo10.DTO.Response.AppUserResponse;
 import com.nocountry.grupo10.DTO.Response.ListAccountResponse;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
+import com.nocountry.grupo10.exception.custom.TypeAccountAlreadyExistException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.model.entity.AppUser;
 import com.nocountry.grupo10.repository.AccountRepository;
 import com.nocountry.grupo10.service.AccountService;
+import com.nocountry.grupo10.service.UserService;
 import com.nocountry.grupo10.util.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,21 +28,32 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+    
+    @Autowired
+    private UserService userService;
 
     @Override
     public void create(AccountRequest accountRequest) throws AccountAlreadyExistException {
 
-        long accountNumber;
+        Long accountNumber;
+        Long cvuNumber;
+        
+        AppUser user = userService.getUser(accountRequest.getUser().getIdUser());
         
         do {
             //Genero un número aleatorio y no sale hasta que ese número sea uno que no exista en la BD
             accountNumber = generateAccountNumber();
         } while(accountRepository.existsByAccountNumber(accountNumber));
         
-        AppUser user = ConvertUtil.convertToEntity(accountRequest.getUser());
+        do {
+            //Genero un número aleatorio y no sale hasta que ese número sea uno que no exista en la BD
+            cvuNumber = generateCvuNumber();
+        } while(accountRepository.existsByCvu(cvuNumber));
         
         Account account = ConvertUtil.convertToEntity(accountRequest);
+        
         account.setAccountNumber(accountNumber);
+        account.setCvu(cvuNumber);
         account.setUser(user);
         account.setSoftDelete(false);
 
@@ -89,5 +102,14 @@ public class AccountServiceImpl implements AccountService {
         int last = 99999999;
         long number = (long) random.nextInt( last - initial + 1 ) + initial;
         return number;
+    }
+    
+    private Long generateCvuNumber() {
+        // Genero un número random entre last e initial.
+        Random random = new Random();
+        int initial = 111111111;
+        int last = 999999999;
+        long cvu = (long) random.nextInt( last - initial + 1 ) + initial;
+        return cvu;
     }
 }

@@ -14,7 +14,8 @@ public class AccountRequest {
     private Double balance;
     
     @NotNull(message = "AppUser cannot be null.")
-    private AppUserRequest user;
+    private AccountUserRequest user;
     
+    private double account_maintenance;
     //To Do: agregar todos los atributos necesarios
 }

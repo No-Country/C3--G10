@@ -1,12 +1,8 @@
 package com.nocountry.grupo10.controller;
 
-
-
 import com.nocountry.grupo10.DTO.Request.AccountRequest;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
-
 import com.nocountry.grupo10.service.AccountService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,7 +22,8 @@ public class AccountController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> create(@Valid @RequestBody AccountRequest accountRequest)throws AccountAlreadyExistException {
+    public ResponseEntity<?> create(@Valid @RequestBody AccountRequest accountRequest)
+            throws AccountAlreadyExistException {
         accountService.create(accountRequest);
         return new ResponseEntity<>(accountRequest, HttpStatus.CREATED);
     }

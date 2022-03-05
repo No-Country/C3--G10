@@ -9,11 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "account")
@@ -28,7 +30,7 @@ public class Account implements Serializable {
     private Long idAccount;
 
     @Column(nullable = false, unique = true, name = "account_number")
-    private long AccountNumber;
+    private long accountNumber;
 
     @Column(name = "account_maintenance")
     private Double account_Maintenance;
@@ -39,8 +41,9 @@ public class Account implements Serializable {
     @Column(name = "account_type")
     private AccountType type;
 
-    @Column(nullable = false, name = "user")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private AppUser user;
     
     @OneToMany( mappedBy = "account", cascade = CascadeType.ALL)

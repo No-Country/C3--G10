@@ -5,6 +5,10 @@ import javax.validation.constraints.NotNull;
 
 public class AppUserRequest {
     
+    //LO UTILIZE EN UN PRINCIPIO EN ACCOUNT, PERO NO ME FUE UTIL DESPUÉS, MODIFICAR O ELIMINAR EN CASO DE QUE NO SEA ÚTIL.
+    
+    private long idUser;
+    
     @NotNull(message = "Name cannot be null,")
     private String name;
 
@@ -102,6 +106,12 @@ public class AppUserRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
+    }
 }

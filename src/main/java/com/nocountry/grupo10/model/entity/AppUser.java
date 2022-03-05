@@ -19,7 +19,10 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  * Entidad encargada de generar la tabla "user"
@@ -88,6 +91,9 @@ public class AppUser implements Serializable {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles = new HashSet();
-
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Account> accounts;
+    
     //TODO: Email como username para logear?? o aplicar username
 }
