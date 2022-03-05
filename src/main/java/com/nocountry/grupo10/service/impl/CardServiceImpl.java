@@ -48,7 +48,7 @@ public class CardServiceImpl implements ICardService {
         
         List<CardResponse> cardsResponses = new ArrayList<>();
         for(Card card: cards) {
-            CardResponse cardResponse = ConvertUtil.convertToDto(card); //Funciona para crear DTO?
+            CardResponse cardResponse = ConvertUtil.convertToDto(card);
             cardsResponses.add(cardResponse);
         }
         
