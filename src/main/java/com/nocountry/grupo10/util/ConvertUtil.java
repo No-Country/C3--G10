@@ -7,9 +7,9 @@ import com.nocountry.grupo10.DTO.Response.CardResponse;
 import com.nocountry.grupo10.model.entity.Card;
 import com.nocountry.grupo10.model.entity.Transfer;
 import com.nocountry.grupo10.model.entity.Account;
-import org.springframework.stereotype.Component;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @Component
 public class ConvertUtil {
@@ -42,6 +42,6 @@ public class ConvertUtil {
             return null;
         }
 
-        return modelMapper.map(source, destinationType);
+        return map(source, destinationType);
     }
 }
