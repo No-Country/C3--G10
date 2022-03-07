@@ -5,7 +5,6 @@ import com.nocountry.grupo10.DTO.Response.AccountResponse;
 import com.nocountry.grupo10.DTO.Response.AppUserResponse;
 import com.nocountry.grupo10.DTO.Response.ListAccountResponse;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
-import com.nocountry.grupo10.exception.custom.TypeAccountAlreadyExistException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.model.entity.AppUser;
 import com.nocountry.grupo10.repository.AccountRepository;
