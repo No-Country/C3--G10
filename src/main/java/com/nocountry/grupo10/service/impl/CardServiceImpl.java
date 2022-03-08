@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 @Service
 public class CardServiceImpl implements ICardService {
     
-    private static final String CATEGORY_ID_NOT_FOUND = "Card ID: {0} not found.";
+    private static final String CARD_ID_NOT_FOUND = "Card ID: {0} not found.";
 
     @Autowired
     private ICardRepository cardRepository;
@@ -65,6 +65,6 @@ public class CardServiceImpl implements ICardService {
     
     private Card getCard(Long id) {
         return cardRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(MessageFormat.format(CATEGORY_ID_NOT_FOUND, id)));
+                .orElseThrow(() -> new NoSuchElementException(MessageFormat.format(CARD_ID_NOT_FOUND, id)));
     }
 }

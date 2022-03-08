@@ -1,8 +1,11 @@
 package com.nocountry.grupo10.controller;
 
 import com.nocountry.grupo10.DTO.Request.CardRequest;
+import com.nocountry.grupo10.DTO.Response.DeleteResponse;
+import com.nocountry.grupo10.exception.ExceptionHandler;
 import com.nocountry.grupo10.exception.custom.CardAlreadyExistException;
 import com.nocountry.grupo10.service.ICardService;
+import java.util.NoSuchElementException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,7 +42,11 @@ public class CardController {
     
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        cardService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            cardService.delete(id);
+            return DeleteResponse.deleteOk(id);
+        } catch (NoSuchElementException e) {
+            return ExceptionHandler.throwError(HttpStatus.NOT_FOUND, e.getMessage());
+        }
     }
 }
