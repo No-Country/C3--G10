@@ -8,6 +8,8 @@ import com.nocountry.grupo10.model.entity.AccountType;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountResponse {
 
+    private long idAccount;
+    
     private long accountNumber;
     
     private AccountType type;
@@ -56,5 +58,13 @@ public class AccountResponse {
 
     public void setUserResponse(AppUserResponse userResponse) {
         this.userResponse = userResponse;
+    }
+
+    public long getIdAccount() {
+        return idAccount;
+    }
+
+    public void setIdAccount(long idAccount) {
+        this.idAccount = idAccount;
     }
 }

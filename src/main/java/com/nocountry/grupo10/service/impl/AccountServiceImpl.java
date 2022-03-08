@@ -8,7 +8,6 @@ import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.model.entity.AppUser;
 import com.nocountry.grupo10.repository.AccountRepository;
-import com.nocountry.grupo10.service.AccountService;
 import com.nocountry.grupo10.service.UserService;
 import com.nocountry.grupo10.util.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import com.nocountry.grupo10.service.IAccountService;
 
 @Service
-public class AccountServiceImpl implements AccountService {
+public class AccountServiceImpl implements IAccountService {
 
     private static final String ACCOUNT_ID_NOT_FOUND = "Account ID: {0} not found.";
 
@@ -97,7 +97,7 @@ public class AccountServiceImpl implements AccountService {
     private long generateAccountNumber() {
         // Genero un número random entre last e initial.
         Random random = new Random();
-        int initial = 11111111;
+        int initial = 00000000;
         int last = 99999999;
         long number = (long) random.nextInt( last - initial + 1 ) + initial;
         return number;
@@ -106,7 +106,7 @@ public class AccountServiceImpl implements AccountService {
     private Long generateCvuNumber() {
         // Genero un número random entre last e initial.
         Random random = new Random();
-        int initial = 111111111;
+        int initial = 000000000;
         int last = 999999999;
         long cvu = (long) random.nextInt( last - initial + 1 ) + initial;
         return cvu;

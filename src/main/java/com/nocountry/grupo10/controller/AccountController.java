@@ -2,7 +2,6 @@ package com.nocountry.grupo10.controller;
 
 import com.nocountry.grupo10.DTO.Request.AccountRequest;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
-import com.nocountry.grupo10.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import com.nocountry.grupo10.service.IAccountService;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
 
     @Autowired
-    private AccountService accountService;
+    private IAccountService accountService;
 
     @PostMapping(
             produces = MediaType.APPLICATION_JSON_VALUE,
