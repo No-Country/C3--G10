@@ -13,9 +13,10 @@ public class AccountRequest {
     @NotNull(message = "Balance cannot be null.")
     private Double balance;
     
+    //Traigo el id del User al que pertenece la cuenta
     @NotNull(message = "AppUser cannot be null.")
     private AccountUserRequest user;
     
-    private double account_maintenance;
+    private double account_maintenance; //Eliminar ya que el balance va a ser consultado desde AccountUserRequest
     //To Do: agregar todos los atributos necesarios
 }

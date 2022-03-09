@@ -5,6 +5,7 @@ import com.nocountry.grupo10.DTO.Request.TransferRequest;
 import com.nocountry.grupo10.exception.custom.MoneyNotEnoughException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.repository.ITransferRepository;
+import com.nocountry.grupo10.service.IAccountService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.nocountry.grupo10.service.ITransferService;
@@ -21,8 +22,12 @@ public class TransferServiceImpl implements ITransferService {
     @Autowired
     private ITransferRepository transferRepository;
     
+    @Autowired
+    private IAccountService accountService;
+    
     @Override
     public void create(TransferRequest transferRequest) throws MoneyNotEnoughException {
+        /*
         Account account = ConvertUtil.convertToEntity(transferRequest.getAccountBelong());  //Obtengo la accountRequest para convertirla en entity
         Transfer transfer = ConvertUtil.convertToEntity(transferRequest);
         transfer.setAccountBelong(account);
@@ -37,6 +42,7 @@ public class TransferServiceImpl implements ITransferService {
         
         transfer.setTimestamp(TimeStampUtil.getCurrentTime());
         transferRepository.save(transfer);
+*/
     }
 
     @Override

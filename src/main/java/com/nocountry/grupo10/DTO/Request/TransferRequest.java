@@ -1,6 +1,5 @@
 package com.nocountry.grupo10.DTO.Request;
 
-import com.nocountry.grupo10.model.entity.Account;
 import javax.validation.constraints.NotNull;
 
 public class TransferRequest {
@@ -9,10 +8,10 @@ public class TransferRequest {
     private long amount;
     
     @NotNull(message = "Cvu Receiver can not be null.")
-    private long cvuReceiver;
+    private long cvuToSend;
     
-    @NotNull(message = "Account can not be null.")
-    private AccountRequest accountBelong;
+    @NotNull(message = "Account belong can not be null.")
+    private TransferIdAccountRequest accountBelong;
 
     public long getAmount() {
         return amount;
@@ -23,18 +22,18 @@ public class TransferRequest {
     }
 
     public long getCvuReceiver() {
-        return cvuReceiver;
+        return cvuToSend;
     }
 
     public void setCvuReceiver(long cvuReceiver) {
-        this.cvuReceiver = cvuReceiver;
+        this.cvuToSend = cvuReceiver;
     }
 
-    public AccountRequest getAccountBelong() {
+    public TransferIdAccountRequest getAccountBelong() {
         return accountBelong;
     }
 
-    public void setAccountBelong(AccountRequest accountBelong) {
+    public void setAccountBelong(TransferIdAccountRequest accountBelong) {
         this.accountBelong = accountBelong;
     }
 }
