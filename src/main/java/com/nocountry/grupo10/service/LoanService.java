@@ -2,7 +2,9 @@ package com.nocountry.grupo10.service;
 
 import com.nocountry.grupo10.DTO.Request.LoanRequest;
 import com.nocountry.grupo10.DTO.Response.LoanResponse;
+import com.nocountry.grupo10.DTO.Response.LoanStateResponse;
 import com.nocountry.grupo10.exception.custom.LoanAlreadyExistException;
+import com.nocountry.grupo10.exception.custom.LoanStillNotApprobedException;
 import com.nocountry.grupo10.exception.custom.UserDocumentNotExist;
 import com.nocountry.grupo10.exception.custom.UserHasNotLoanException;
 
@@ -12,4 +14,6 @@ public interface LoanService {
     LoanResponse createLoan(LoanRequest loanRequest) throws UserDocumentNotExist, LoanAlreadyExistException;
     List<LoanResponse> findAllNotAproved();
     LoanResponse approveLoan(Long document) throws UserDocumentNotExist, UserHasNotLoanException;
+    LoanStateResponse checkLoanState(Long document) throws UserDocumentNotExist, UserHasNotLoanException;
+    LoanResponse payLoan(Long document) throws UserDocumentNotExist, UserHasNotLoanException, LoanStillNotApprobedException;
 }
