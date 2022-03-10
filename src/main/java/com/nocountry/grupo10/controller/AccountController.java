@@ -3,6 +3,7 @@ package com.nocountry.grupo10.controller;
 import com.nocountry.grupo10.DTO.Request.AccountRequest;
 import com.nocountry.grupo10.DTO.Response.DeleteOkResponse;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
+import com.nocountry.grupo10.exception.custom.CvuNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

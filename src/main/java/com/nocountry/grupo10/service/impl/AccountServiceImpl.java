@@ -24,6 +24,7 @@ import com.nocountry.grupo10.service.IAccountService;
 public class AccountServiceImpl implements IAccountService {
 
     private static final String ACCOUNT_ID_NOT_FOUND = "Account ID: {0} not found.";
+    private static final String ACCOUNT_CVU_NOT_FOUND = "Account cvu: {0} not found.";
 
     @Autowired
     private AccountRepository accountRepository;
@@ -94,6 +95,13 @@ public class AccountServiceImpl implements IAccountService {
                 .orElseThrow(() -> new NoSuchElementException(MessageFormat.format(ACCOUNT_ID_NOT_FOUND, id)));
     }
     
+    @Override
+    //Utilizo este método en transferServiceImpl para obtener la account con el cvu
+    public Account getAccountByCvu(Long cvu) {
+        return accountRepository.findByCvu(cvu)
+                .orElseThrow(() -> new NoSuchElementException(MessageFormat.format(ACCOUNT_CVU_NOT_FOUND, cvu)));
+    }
+    
     private long generateAccountNumber() {
         // Genero un número random entre last e initial.
         Random random = new Random();
@@ -110,5 +118,14 @@ public class AccountServiceImpl implements IAccountService {
         int last = 999999999;
         long cvu = (long) random.nextInt( last - initial + 1 ) + initial;
         return cvu;
+    }
+
+    @Override
+    public void addTransfer(Long cvu, Double amount) {
+        Account accountReceiver = getAccountByCvu(cvu);
+        Double balanceUpdated = accountReceiver.getBalance() + amount;
+        
+        accountReceiver.setBalance(balanceUpdated);
+        accountRepository.save(accountReceiver);
     }
 }

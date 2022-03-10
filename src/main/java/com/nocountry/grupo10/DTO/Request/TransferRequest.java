@@ -5,28 +5,28 @@ import javax.validation.constraints.NotNull;
 public class TransferRequest {
     
     @NotNull(message = "Amount can not be null.")
-    private long amount;
+    private Double amount;
     
     @NotNull(message = "Cvu Receiver can not be null.")
-    private long cvuToSend;
+    private long cvuReceiver;
     
     @NotNull(message = "Account belong can not be null.")
     private TransferIdAccountRequest accountBelong;
 
-    public long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
     public long getCvuReceiver() {
-        return cvuToSend;
+        return cvuReceiver;
     }
 
     public void setCvuReceiver(long cvuReceiver) {
-        this.cvuToSend = cvuReceiver;
+        this.cvuReceiver = cvuReceiver;
     }
 
     public TransferIdAccountRequest getAccountBelong() {

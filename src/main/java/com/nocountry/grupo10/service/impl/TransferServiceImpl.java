@@ -2,6 +2,7 @@ package com.nocountry.grupo10.service.impl;
 
 import com.nocountry.grupo10.model.entity.Transfer;
 import com.nocountry.grupo10.DTO.Request.TransferRequest;
+import com.nocountry.grupo10.exception.custom.CvuNotFoundException;
 import com.nocountry.grupo10.exception.custom.MoneyNotEnoughException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.repository.ITransferRepository;
@@ -26,23 +27,47 @@ public class TransferServiceImpl implements ITransferService {
     private IAccountService accountService;
     
     @Override
-    public void create(TransferRequest transferRequest) throws MoneyNotEnoughException {
-        /*
-        Account account = ConvertUtil.convertToEntity(transferRequest.getAccountBelong());  //Obtengo la accountRequest para convertirla en entity
+    public void create(TransferRequest transferRequest) throws MoneyNotEnoughException, CvuNotFoundException {
+        
+        //Cvu al que voy a enviar la transferencia
+        Long cvuReceiver = transferRequest.getCvuReceiver();
+        Double amount = transferRequest.getAmount();
+        
+        Account accountReceiver = accountService.getAccountByCvu(cvuReceiver);
+        if(accountReceiver.isSoftDelete()) {
+            String cvu = String.valueOf(cvuReceiver);
+            
+            throw new CvuNotFoundException(cvu);
+        }
+        
+        //Traigo la account a la que pertenece la transferencia
+        Account account = accountService.getAccountByCvu(transferRequest.getAccountBelong().getCvu());
+        Double balance = account.getBalance();
+        
         Transfer transfer = ConvertUtil.convertToEntity(transferRequest);
-        transfer.setAccountBelong(account);
-        Double balance = transferRequest.getAccountBelong().getBalance();
-        boolean moneyEnough = balance > transferRequest.getAmount();
+        
+        //Verifico que el dinero disponible en la cuanta es mayor que la cantidad que quiero enviar
+        boolean moneyEnough = balance >= transferRequest.getAmount();
         
         if(!moneyEnough) {
+            //Si balance es menor que la cantidad a enviar, lanzo la excepción
             String ammount = String.valueOf(transferRequest.getAmount());
             
             throw new MoneyNotEnoughException(ammount);
         }
         
+        //Actualizo el balance después de enviar la transferencia
+        Double balanceUpdated = balance - transferRequest.getAmount();
+        account.setBalance(balanceUpdated);
+        transfer.setAccountBelong(account);
         transfer.setTimestamp(TimeStampUtil.getCurrentTime());
+        
+        /*
+            Actualiza el balance después de recibir la transferencia
+            envio el cvu y la cantidad de dinero que envía
+        */
+        accountService.addTransfer(cvuReceiver, amount);
         transferRepository.save(transfer);
-*/
     }
 
     @Override

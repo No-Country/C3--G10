@@ -2,6 +2,7 @@ package com.nocountry.grupo10.controller;
 
 import com.nocountry.grupo10.DTO.Request.TransferRequest;
 import com.nocountry.grupo10.DTO.Response.DeleteOkResponse;
+import com.nocountry.grupo10.exception.custom.CvuNotFoundException;
 import com.nocountry.grupo10.exception.custom.MoneyNotEnoughException;
 import com.nocountry.grupo10.service.ITransferService;
 import java.util.NoSuchElementException;
@@ -29,9 +30,20 @@ public class TransferController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<?> create(@Valid @RequestBody TransferRequest request) throws MoneyNotEnoughException {
+    public ResponseEntity<?> create(@Valid @RequestBody TransferRequest request)
+            throws MoneyNotEnoughException, CvuNotFoundException {
+        /*
         transferService.create(request);
         return new ResponseEntity<>(request, HttpStatus.CREATED);
+        */
+        try {
+            transferService.create(request);
+            return new ResponseEntity<>(request, HttpStatus.CREATED);
+        } catch (CvuNotFoundException e) {
+            return ExceptionHandler.throwError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        } catch (MoneyNotEnoughException e) {
+            return ExceptionHandler.throwError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
