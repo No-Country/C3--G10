@@ -1,19 +1,33 @@
 package com.nocountry.grupo10.model.entity;
 
-
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 
+
 import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  * Entidad encargada de generar la tabla "user"
@@ -68,14 +82,10 @@ public class AppUser implements Serializable {
     @Size(min = 3, max = 40)
     private String address;
 
-    @Column(name = "address_number")
-    private Long addressNumber;
-
     @Column(name = "birthdate")
     @DateTimeFormat(
             pattern = "yyyy/MM/dd"
     )
-
     private LocalDate birthdate;
 
     @Column(name = "password")
@@ -89,4 +99,9 @@ public class AppUser implements Serializable {
 
     @OneToOne
     private Loan loan;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Account> accounts;
+
+
 }

@@ -15,7 +15,7 @@ public class LoanMapper {
         loan.setRequiredMoney(loanRequest.getRequiredMoney());
         loan.setDues(loanRequest.getDues());
         loan.setState(Boolean.FALSE);
-        // Estoy multiplicando por 12 y por 100 para guardar interes anual
+        // Estoy multiplicando por 12 y por 100 para guardar interes anual.
         loan.setInterest(parameter.getInterestMontlyRate()*12*100);
         Double cuota = parameter.getMonthlyFee(loanRequest.getRequiredMoney(),loanRequest.getDues());
         loan.setMonthlyFee(cuota);
