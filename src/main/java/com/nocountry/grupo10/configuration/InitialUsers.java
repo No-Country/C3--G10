@@ -40,6 +40,7 @@ public class InitialUsers implements CommandLineRunner {
     @Autowired
     PasswordEncoder encoder;
 
+
     @Override
     public void run(String... args) throws Exception {
         createRolesIfNotExist();

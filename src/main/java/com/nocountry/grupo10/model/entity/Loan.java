@@ -1,12 +1,7 @@
 package com.nocountry.grupo10.model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "loan")
@@ -20,19 +15,46 @@ public class Loan implements Serializable {
     private Long idLoan;
     
     @Column(nullable = false, name = "total_amount")
-    private Long totalAmount;
-    
-    @Column(nullable = false, name = "id_client")   //Establecer relacion con tabla user-cliente
-    private Long idCliente;
+    private Double totalAmount;
+
+    @Column(name = "required_money")
+    private Long requiredMoney;
+
+    //@Column(nullable = false, name = "id_client")   //Establecer relacion con tabla user-cliente
+    @OneToOne(mappedBy = "loan")
+    private AppUser user;
 
     @Column(nullable = false, name = "interest")
     private double interest;
     
     @Column(nullable = false, name = "monthly_fee")
     private double monthlyFee;
+
+    @Column(name = "dues")
+    private Integer dues;
+
+    @Column(name = "state")
+    private Boolean state;
+
     
     public Loan() {
     
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
+
+    public Long getRequiredMoney() {
+        return requiredMoney;
+    }
+
+    public void setRequiredMoney(Long requiredMoney) {
+        this.requiredMoney = requiredMoney;
     }
 
     public Long getIdLoan() {
@@ -43,21 +65,30 @@ public class Loan implements Serializable {
         this.idLoan = idLoan;
     }
 
-    public Long getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Long totalAmount) {
+    public Integer getDues() {
+        return dues;
+    }
+
+    public void setDues(Integer dues) {
+        this.dues = dues;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
 
     public double getInterest() {
         return interest;
