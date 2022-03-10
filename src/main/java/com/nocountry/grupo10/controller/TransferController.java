@@ -50,7 +50,7 @@ public class TransferController {
     public ResponseEntity<?> listAccounts() {
         return new ResponseEntity<>(transferService.listTransfers(), HttpStatus.OK);
     }
-
+    
     @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> delete(@PathVariable("id") Long idTransfer) {
         try {
@@ -60,6 +60,4 @@ public class TransferController {
             return ExceptionHandler.throwError(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
-
-    // To Do: GetMapping con las relaciones
 }
