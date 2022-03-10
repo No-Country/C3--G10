@@ -88,8 +88,5 @@ public class AppUser implements Serializable {
     private Set<Role> roles = new HashSet();
 
     @OneToOne
-    //@JoinColumn(name = "id_loan", referencedColumnName = "dni")
     private Loan loan;
-
-    //TODO: Email como username para logear?? o aplicar username
 }
