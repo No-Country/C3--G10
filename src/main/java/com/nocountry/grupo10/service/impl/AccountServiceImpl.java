@@ -5,6 +5,7 @@ import com.nocountry.grupo10.DTO.Response.AccountResponse;
 import com.nocountry.grupo10.DTO.Response.AppUserResponse;
 import com.nocountry.grupo10.DTO.Response.ListAccountResponse;
 import com.nocountry.grupo10.exception.custom.AccountAlreadyExistException;
+import com.nocountry.grupo10.exception.custom.CvuNotFoundException;
 import com.nocountry.grupo10.model.entity.Account;
 import com.nocountry.grupo10.model.entity.AppUser;
 import com.nocountry.grupo10.repository.AccountRepository;
@@ -24,7 +25,6 @@ import com.nocountry.grupo10.service.IAccountService;
 public class AccountServiceImpl implements IAccountService {
 
     private static final String ACCOUNT_ID_NOT_FOUND = "Account ID: {0} not found.";
-    private static final String ACCOUNT_CVU_NOT_FOUND = "Account cvu: {0} not found.";
 
     @Autowired
     private AccountRepository accountRepository;
@@ -97,9 +97,10 @@ public class AccountServiceImpl implements IAccountService {
     
     @Override
     //Utilizo este método en transferServiceImpl para obtener la account con el cvu
-    public Account getAccountByCvu(Long cvu) {
+    public Account getAccountByCvu(Long cvu) throws CvuNotFoundException {
+        String cvuNumber = String.valueOf(cvu);
         return accountRepository.findByCvu(cvu)
-                .orElseThrow(() -> new NoSuchElementException(MessageFormat.format(ACCOUNT_CVU_NOT_FOUND, cvu)));
+                .orElseThrow(() -> new CvuNotFoundException(cvuNumber));
     }
     
     private long generateAccountNumber() {
@@ -121,7 +122,7 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
-    public void addTransfer(Long cvu, Double amount) {
+    public void addTransfer(Long cvu, Double amount) throws CvuNotFoundException {
         Account accountReceiver = getAccountByCvu(cvu);
         Double balanceUpdated = accountReceiver.getBalance() + amount;
         

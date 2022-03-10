@@ -2,6 +2,7 @@ package com.nocountry.grupo10.repository;
 
 
 import com.nocountry.grupo10.model.entity.Transfer;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ITransferRepository extends JpaRepository<Transfer, Long> {
 
     Optional<Transfer> findById(long id);
+    
+    List<Transfer> findBySoftDeleteIsNullOrSoftDeleteIsFalse();
 }

@@ -7,6 +7,7 @@ import com.nocountry.grupo10.DTO.Request.TransferRequest;
 import com.nocountry.grupo10.DTO.Response.AccountResponse;
 import com.nocountry.grupo10.DTO.Response.AppUserResponse;
 import com.nocountry.grupo10.DTO.Response.CardResponse;
+import com.nocountry.grupo10.DTO.Response.TransferResponse;
 import com.nocountry.grupo10.model.entity.Card;
 import com.nocountry.grupo10.model.entity.Transfer;
 import com.nocountry.grupo10.model.entity.Account;
@@ -35,6 +36,10 @@ public class ConvertUtil {
 
     public static CardResponse convertToDto(Card card) {
         return map(card, CardResponse.class);
+    }
+    
+    public static TransferResponse convertToDto(Transfer transfer) {
+        return map(transfer, TransferResponse.class);
     }
 
     public static AccountResponse convertToDto(Account account) {
