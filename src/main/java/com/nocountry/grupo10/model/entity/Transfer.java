@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table (name = "transfer")
@@ -26,10 +27,12 @@ public class Transfer implements Serializable {
     @Column(name = "amount")
     private long amount;
     
+    //Cvu al que se envía la transferencia
     @Column(name = "cvuReceiver")
     private long cvuReceiver;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Account accountBelong;
     
     @Column(name = "timestamp")
@@ -61,14 +64,6 @@ public class Transfer implements Serializable {
     public void setCvuReceiver(long cvuReceiver) {
         this.cvuReceiver = cvuReceiver;
     }
-
-    public Account getAccount() {
-        return accountBelong;
-    }
-
-    public void setAccount(Account account) {
-        this.accountBelong = account;
-    }    
     
     public Account getAccountBelong() {
         return accountBelong;
