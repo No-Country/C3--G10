@@ -3,6 +3,10 @@ package com.nocountry.grupo10.model.entity;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
+
+import javax.persistence.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.ManyToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -91,9 +96,12 @@ public class AppUser implements Serializable {
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles = new HashSet();
-    
+
+    @OneToOne
+    private Loan loan;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Account> accounts;
-    
-    //TODO: Email como username para logear?? o aplicar username
+
+
 }
