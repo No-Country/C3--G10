@@ -3,7 +3,6 @@ package com.nocountry.grupo10.service.impl;
 import com.nocountry.grupo10.model.entity.Transfer;
 import com.nocountry.grupo10.DTO.Request.TransferRequest;
 import com.nocountry.grupo10.DTO.Response.AccountResponse;
-import com.nocountry.grupo10.DTO.Response.ListAccountResponse;
 import com.nocountry.grupo10.DTO.Response.ListTransferResponse;
 import com.nocountry.grupo10.DTO.Response.TransferResponse;
 import com.nocountry.grupo10.exception.custom.CvuNotFoundException;
@@ -20,8 +19,8 @@ import com.nocountry.grupo10.util.ConvertUtil;
 import com.nocountry.grupo10.util.TimeStampUtil;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.List;
 
 @Service
 public class TransferServiceImpl implements ITransferService {
